@@ -5,6 +5,10 @@ class ProductsController
 {
     public function product()
     {
+        if(empty($_SESSION['isAdminLoggedIn'])) {
+            header("Location: index.php?route=shop");
+            exit();
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
@@ -36,30 +40,14 @@ class ProductsController
 
     }
 
-    public function handleInsert()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $product_id = $_POST['product_id'];
-            $quantity = $_POST['quantity'];
-            $order_id = $_POST['order_id'];
-
-
-            if (!empty($product_id) && !empty($quantity) && !empty($order_id)) {
-                $productModel = new ProductsModel();
-                $productModel->insertOrderItem($product_id, $quantity, $order_id);
-                header("Location: index.php?route=shop");
-                die();
-            } else {
-                echo 'Fill in all fields';
-            }
-        }
-
-        include "../view/order.php";
-
-    }
-
     public function handleUpdate()
     {
+        if(empty($_SESSION['isAdminLoggedIn'])) {
+            header("Location: index.php?route=shop");
+            exit();
+        }
+
+
         $productModel = new ProductsModel();
         $products = $productModel->getAllProducts();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -69,7 +57,7 @@ class ProductsController
                 $productModel = new ProductsModel();
                 $productModel->update($product_id, $name, $description, $price, $image_path);
                 header("Location: index.php?route=shop");
-                die();
+                exit();
             } else {
                 echo 'Fill in all fields';
             }
@@ -79,6 +67,10 @@ class ProductsController
 
     public function handleView()
     {
+        if(empty($_SESSION['isAdminLoggedIn'])) {
+            header("Location: index.php?route=shop");
+            exit();
+        }
         $product_id = $_GET['product_id'] ?? '';
 
         if (!empty($product_id)) {
@@ -93,6 +85,7 @@ class ProductsController
 
     public function addProduct()
     {
+
         $product_id = $_GET['product_id'] ?? '';
 
         if (!empty($product_id)) {
@@ -131,6 +124,10 @@ class ProductsController
 
     public function handleDelete()
     {
+        if(empty($_SESSION['isAdminLoggedIn'])) {
+            header("Location: index.php?route=shop");
+            exit();
+        }
         $product_id = $_GET['product_id'] ?? '';
 
         $productModel = new ProductsModel();
