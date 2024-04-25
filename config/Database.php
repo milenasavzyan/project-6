@@ -25,6 +25,7 @@ class Database
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->pdo = $pdo;
     }
+
     public function getConnection()
     {
         return $this->pdo;

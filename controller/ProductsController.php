@@ -35,6 +35,7 @@ class ProductsController
         include "../view/products.php";
 
     }
+
     public function handleInsert()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -75,32 +76,35 @@ class ProductsController
         }
         include "../view/update.php";
     }
+
     public function handleView()
     {
-            $product_id = $_GET['product_id'] ?? '';
+        $product_id = $_GET['product_id'] ?? '';
 
-            if (!empty($product_id)) {
-                $productModel = new ProductsModel();
-                $product = $productModel->getProducts($product_id);
-            } else {
-                echo 'Error';
-            }
+        if (!empty($product_id)) {
+            $productModel = new ProductsModel();
+            $product = $productModel->getProducts($product_id);
+        } else {
+            echo 'Error';
+        }
 
         include "../view/view.php";
     }
+
     public function addProduct()
     {
-            $product_id = $_GET['product_id'] ?? '';
+        $product_id = $_GET['product_id'] ?? '';
 
-            if (!empty($product_id)) {
-                $productModel = new ProductsModel();
-                $product = $productModel->getProducts($product_id);
-            } else {
-                echo 'Error';
-            }
+        if (!empty($product_id)) {
+            $productModel = new ProductsModel();
+            $product = $productModel->getProducts($product_id);
+        } else {
+            echo 'Error';
+        }
 
         include "../view/add.php";
     }
+
     public function addCart()
     {
         $product_id = $_GET['product_id'] ?? '';

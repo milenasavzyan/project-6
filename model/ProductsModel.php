@@ -7,6 +7,7 @@ class ProductsModel
     {
         $pdo = Database::getInstance()->getConnection();
     }
+
     public function getAllProducts()
     {
         $pdo = Database::getInstance()->getConnection();
@@ -19,10 +20,11 @@ class ProductsModel
             echo 'Error: ' . $e->getMessage();
         }
     }
+
     public function insert($name, $description, $price, $image_path)
     {
         $pdo = Database::getInstance()->getConnection();
-        try{
+        try {
             $stmt = $pdo->prepare('INSERT INTO products (`name`, `description`, price, image_path) VALUES (?, ?, ?, ?)');
             $stmt->execute([$name, $description, $price, $image_path]);
             header('Location: index.php?route=shop');
@@ -31,6 +33,7 @@ class ProductsModel
             echo 'Error: ' . $e->getMessage();
         }
     }
+
     public function getProducts($product_id)
     {
 

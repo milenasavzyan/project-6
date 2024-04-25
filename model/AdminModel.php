@@ -15,7 +15,7 @@ class AdminModel
             if ($row && $row['name'] == $_SESSION['name']) {
                 return true;
                 header('Location: /?route=shop');
-                    exit();
+                exit();
             } else {
                 return false;
             }
